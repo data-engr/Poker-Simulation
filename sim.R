@@ -14,18 +14,20 @@ suit<-c(spades,clubs,diamonds,hearts)
 
 deck<-paste(value,suit,sep = "")
 
-
-############
-# pre flop #
-############
-player1<-rep(NA, 2)
-player2<-rep(NA, 2)
-for(i in 1:2){
-  player1[i]<-sample(deck,size = 1, replace = FALSE)
-  deck<-deck[-which(deck%in%player1)]
-  player2[i]<-sample(deck,size = 1,replace = FALSE)
-  deck<-deck[-which(deck%in%player2)]
+hand<-function(players=2){
+  ############
+  # pre flop #
+  ############
+  player<-matrix(NA,nrow=players,ncol=2)
+  for(i in 1:2){
+    for(j in 1:players){
+      player[j,i]<-sample(deck,size = 1, replace = FALSE)
+      deck<-deck[-which(deck%in%player)]
+    }
+  }
+  return(player)
 }
+
 
 ########
 # flop #
